@@ -2,121 +2,80 @@ package com.bridgelab;
 import java.util.regex.*;
 import java.util.Scanner;
 
+@FunctionalInterface
+interface Validate{
+    boolean validate(String input) throws InvalidContent;
+}
 public class RegistrationDetails {
-    public static boolean validateFirstName(String firstName) throws InvalidContent{
-        try {
-            System.out.println("Enter First Name");
-        /*Scanner sc = new Scanner(System.in);
-        firstName = sc.nextLine();*/
+    // Created a method to validate first name using lambda expression
+    Validate validFirstName = firstName ->{
+        if(firstName==null){
+            throw new InvalidContent(InvalidContent.ExceptionType.NULL,"Input can't be null");
+        } else if (firstName.length()==0) {
+            throw new InvalidContent(InvalidContent.ExceptionType.EMPTY,"Input can't be empty");
+        }
+        {
             String regex="^[A-Z][a-z]{3,}$";
-
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(firstName);
             boolean b = m.matches();
-            System.out.println(b);
             return b;
-        }catch (Exception e){
-            throw new InvalidContent("Invalid First name");
         }
-
-        /*if(b==true)
-            System.out.println("First name is valid");
-
-        else
-            System.out.println("First name is invalid");
-*/
-    }
-    public static boolean validateLastName(String lastName) throws InvalidContent{
-        try {
-            System.out.println("Enter Last Name");
-       /* Scanner sc = new Scanner(System.in);
-        lastName = sc.nextLine();*/
+    };
+    Validate validLastName = lastName ->{
+        if(lastName==null){
+            throw new InvalidContent(InvalidContent.ExceptionType.NULL,"Input can't be null");
+        } else if (lastName.length()==0) {
+            throw new InvalidContent(InvalidContent.ExceptionType.EMPTY,"Input can't be empty");
+        }
+        {
             String regex="^[A-Z][a-z]{3,}$";
-
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(lastName);
             boolean b = m.matches();
-            System.out.println(b);
             return b;
-        }catch (Exception e){
-            throw new InvalidContent("Invalid Last name");
         }
-
-       /* if(b==true)
-            System.out.println("Last name is valid");
-
-        else
-            System.out.println("Last name is invalid");
-*/
-    }
-    public static boolean validateEmail(String email) throws InvalidContent{
-        try {
-            System.out.println("Enter Email id");
-        /*Scanner sc = new Scanner(System.in);
-        email = sc.nextLine();*/
+    };
+    Validate validEmail = email ->{
+        if(email==null){
+            throw new InvalidContent(InvalidContent.ExceptionType.NULL,"Input can't be null");
+        } else if (email.length()==0) {
+            throw new InvalidContent(InvalidContent.ExceptionType.EMPTY,"Input can't be empty");
+        }
+        {
             String regex="^[a-z0-9]{2,}(['.''\\-''+']?)([a-z0-9]*)+@[a-z]{2,}['.'][a-z]{2,}$";
-
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(email);
             boolean b = m.matches();
-            System.out.println(b);
             return b;
-        }catch (Exception e){
-            throw new InvalidContent("Invalid Email id");
-//            System.out.println("Enter valid email id");
         }
-
-        /*if(b==true)
-            System.out.println("Email id is valid");
-
-        else
-            System.out.println("Email Id is invalid");
-*/
-    }
-    public static boolean validateMobileNumber(String mobile) throws InvalidContent{
-        try {
-            System.out.println("Enter Mobile number");
-        /*Scanner sc = new Scanner(System.in);
-        mobile = sc.nextLine();*/
+    };
+    Validate validPhoneNumber = phoneNumber ->{
+        if(phoneNumber==null){
+            throw new InvalidContent(InvalidContent.ExceptionType.NULL,"Input can't be null");
+        } else if (phoneNumber.length()==0) {
+            throw new InvalidContent(InvalidContent.ExceptionType.EMPTY,"Input can't be empty");
+        }
+        {
             String regex="^[1-9]{2}\\s{0,1}[0-9]{10}$";
-
             Pattern p = Pattern.compile(regex);
-            Matcher m = p.matcher(mobile);
+            Matcher m = p.matcher(phoneNumber);
             boolean b = m.matches();
-            System.out.println(b);
             return b;
-        }catch (Exception e){
-            throw new InvalidContent("Invalid Mobile number");
-//            System.out.println("Enter valid mobile no.");
         }
-
-        /*if(b==true)
-            System.out.println("Mobile number is valid");
-
-        else
-            System.out.println("Mobile Number is invalid");
-*/
-    }
-    public static boolean validatePassword(String password) throws InvalidContent{
-        try {
-            System.out.println("Enter Password");
-        /*Scanner sc = new Scanner(System.in);
-        password = sc.nextLine();*/
+    };
+    Validate validPassword = password ->{
+        if(password==null){
+            throw new InvalidContent(InvalidContent.ExceptionType.NULL,"Input can't be null");
+        } else if (password.length()==0) {
+            throw new InvalidContent(InvalidContent.ExceptionType.EMPTY,"Input can't be empty");
+        }
+        {
             String regex="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*$";
-
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(password);
             boolean b = m.matches();
-            System.out.println(b);
             return b;
-        }catch (Exception e){
-            throw new InvalidContent("Invalid Password");
-//            System.out.println("Enter valid password");
         }
-
-      /*  if(b==true)
-            System.out.println("Password is valid");
-        else
-            System.out.println("Password is invalid");*/
-    }
+    };
 }
